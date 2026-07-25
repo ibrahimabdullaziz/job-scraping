@@ -41,7 +41,7 @@ except ValueError:
 
 # Muted / blocked companies — jobs from these will be silently dropped
 # You can override via .env: MUTED_COMPANIES="micro1,Hire Feed,Jobs AI,Hired"
-_muted = os.getenv("MUTED_COMPANIES", "micro1, Hire Feed, Jobs AI, Hired, micro1 AI")
+_muted = os.getenv("MUTED_COMPANIES", "micro1, Hire Feed, Jobs AI, Hired, micro1 AI, Turing, Quik Hire Staffing")
 MUTED_COMPANIES = [c.strip().lower() for c in _muted.split(",") if c.strip()]
 
 # Database Setting
