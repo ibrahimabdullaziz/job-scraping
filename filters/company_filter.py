@@ -22,7 +22,7 @@ def filter_muted_companies(jobs: list) -> list:
     filtered = []
     dropped = 0
     for job in jobs:
-        company = job.get("company", "")
+        company = getattr(job, "company", "") or ""
         if is_company_muted(company):
             logger.debug(f"🔇 Muted company — skipping: '{company}'")
             dropped += 1
