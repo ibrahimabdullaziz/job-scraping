@@ -18,6 +18,7 @@ from scraper.himalayas import scrape_himalayas_jobs
 from scraper.wuzzuf import scrape_wuzzuf_jobs
 from scraper.gulftalent import scrape_gulftalent_jobs
 from telegram_bot.notifier import TelegramNotifier
+from filters.company_filter import filter_muted_companies
 
 # Configure Loguru
 logger.remove()
@@ -100,7 +101,11 @@ async def scrape_and_notify(repo: JobRepository, notifier: TelegramNotifier):
     
     # ── Summary ──
     logger.info(f"[{cycle_id}] Scraping complete. {len(all_jobs)} total raw jobs collected.")
-    
+
+    # ── Company blocklist filter ──
+    all_jobs = filter_muted_companies(all_jobs)
+    logger.info(f"[{cycle_id}] After company filter: {len(all_jobs)} jobs remain.")
+
     if not all_jobs:
         logger.info(f"[{cycle_id}] No jobs found this cycle across any source.")
         return
